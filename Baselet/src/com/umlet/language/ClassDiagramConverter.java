@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.jboss.forge.roaster.model.source.JavaSource;
-
 import com.baselet.control.Constants;
 import com.baselet.control.Main;
 import com.baselet.control.Path;
@@ -71,13 +69,13 @@ public class ClassDiagramConverter {
 	}
 
 	private SortableElement createElement(String filename) {
-		@SuppressWarnings("unchecked")
-		IClassConverter<JavaSource<?>> converter = (IClassConverter<JavaSource<?>>) ClassConverterProvider.getInstance().getCompatibleConverter(Path.getExtension(filename));
-		if (converter == null) {
-			return null;
+		IClassConverter<?,?> converter = ClassConverterProvider.getInstance().getCompatibleConverter(Path.getExtension(filename));
+		String propertiesText = null;
+		
+		if (converter != null) {
+			propertiesText = converter.getElementProperties(filename);
 		}
 
-		String propertiesText = converter.getElementProperties(filename);
 		if (propertiesText == null) {
 			return null;
 		}

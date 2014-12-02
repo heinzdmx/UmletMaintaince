@@ -25,7 +25,7 @@ public class ClassCodeConverter {
 			return;
 		}
 
-		IClassConverter<?> converter = ClassConverterProvider.getInstance().getCompatibleConverter(Constants.generateSourceType);
+		IClassConverter<?,?> converter = ClassConverterProvider.getInstance().getCompatibleConverter(Constants.generateSourceType);
 
 		List<SourceObject<?>> sources = new ArrayList<SourceObject<?>>();
 

@@ -86,7 +86,7 @@ public class ClassCodeConverterTestBase {
 
 		String filePath = fileHandle.getAbsolutePath();
 		
-		IClassConverter<?> converter2 = ClassConverterProvider.getInstance().getCompatibleConverter(com.baselet.control.Path.getExtension(filePath));
+		IClassConverter<?,?> converter2 = ClassConverterProvider.getInstance().getCompatibleConverter(com.baselet.control.Path.getExtension(filePath));
 		
 		String propertiesText = converter2.getElementProperties(filePath);
 

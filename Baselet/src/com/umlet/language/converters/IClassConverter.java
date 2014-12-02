@@ -1,25 +1,25 @@
 package com.umlet.language.converters;
 
 
-public interface IClassConverter<T> {
+public interface IClassConverter<TypeParsed,TypeSource> {
 	public static final String SPLITTER = "--\n";
 
 	boolean canConvert(String extension);
 
 	String getElementProperties(String file);
 
-	void createTopSection(Object parsedClass, StringBuilder attributes);
+	void createTopSection(TypeParsed parsedClass, StringBuilder attributes);
 
-	void createFieldSection(Object parsedClass, StringBuilder attributes);
+	void createFieldSection(TypeParsed parsedClass, StringBuilder attributes);
 
-	void createMethodSection(Object parsedClass, StringBuilder attributes);
+	void createMethodSection(TypeParsed parsedClass, StringBuilder attributes);
 
-	SourceObject<T> parseElementProperties(String attributes);
+	SourceObject<TypeSource> parseElementProperties(String attributes);
 
-	void parseTopSection(SourceObject<T> code, String attributes);
+	void parseTopSection(SourceObject<TypeSource> code, String attributes);
 
-	void parseFieldSection(SourceObject<T> code, String attributes);
+	void parseFieldSection(SourceObject<TypeSource> code, String attributes);
 
-	void parseMethodSection(SourceObject<T> code, String attributes);
+	void parseMethodSection(SourceObject<TypeSource> code, String attributes);
 
 }

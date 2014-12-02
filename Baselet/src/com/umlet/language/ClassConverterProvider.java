@@ -20,21 +20,21 @@ public class ClassConverterProvider {
 	}
 
 	// a converter is available when it has been added to this list
-	private final List<IClassConverter<?>> converters = Arrays.asList(new JavaClassConverter());
+	private final List<IClassConverter<?,?>> converters = Arrays.asList(new JavaClassConverter());
 
 	private ClassConverterProvider()
 	{
 
 	}
 
-	public List<IClassConverter<?>> getConverters()
+	public List<IClassConverter<?,?>> getConverters()
 	{
 		return Collections.unmodifiableList(converters);
 	}
 
-	public IClassConverter<?> getCompatibleConverter(String ext)
+	public IClassConverter<?,?> getCompatibleConverter(String ext)
 	{
-		for (IClassConverter<?> converter : converters)
+		for (IClassConverter<?,?> converter : converters)
 		{
 			if (converter.canConvert(ext)) {
 				return converter;

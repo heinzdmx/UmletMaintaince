@@ -21,7 +21,7 @@ import com.umlet.language.java.Method;
 import com.umlet.language.java.bcel.BcelJavaClass;
 import com.umlet.language.java.jp.JpJavaClass;
 
-public class JavaClassConverter implements IClassConverter<JavaSource<?>> {
+public class JavaClassConverter implements IClassConverter<JavaClass, JavaSource<?>> {
 	private static final Logger log = Logger.getLogger(JavaClassConverter.class);
 
 	public static final String JAVA_LANG = "java.lang";
@@ -55,27 +55,27 @@ public class JavaClassConverter implements IClassConverter<JavaSource<?>> {
 	}
 
 	@Override
-	public void createTopSection(Object parsedClass, StringBuilder attributes) {
-		ClassRole role = ((JavaClass) parsedClass).getRole();
+	public void createTopSection(JavaClass parsedClass, StringBuilder attributes) {
+		ClassRole role = parsedClass.getRole();
 		if (role == ClassRole.INTERFACE) {
 			attributes.append(INTERFACE_STRING);
 			attributes.append("\n");
-			attributes.append(getClassName((JavaClass) parsedClass));
+			attributes.append(getClassName(parsedClass));
 		}
 		else if (role == ClassRole.ABSTRACT) {
 			attributes.append("/");
-			attributes.append(getClassName((JavaClass) parsedClass));
+			attributes.append(getClassName(parsedClass));
 			attributes.append("/");
 		}
 		else {
-			attributes.append(getClassName((JavaClass) parsedClass));
+			attributes.append(getClassName(parsedClass));
 		}
 		attributes.append("\n");
 	}
 
 	@Override
-	public void createFieldSection(Object parsedClass, StringBuilder attributes) {
-		for (Field field : ((JavaClass) parsedClass).getFields()) {
+	public void createFieldSection(JavaClass parsedClass, StringBuilder attributes) {
+		for (Field field : parsedClass.getFields()) {
 			if (Constants.generateClassFields == FieldOptions.ALL |
 				Constants.generateClassFields == FieldOptions.PUBLIC && field.getAccess() == AccessFlag.PUBLIC) {
 
@@ -93,8 +93,8 @@ public class JavaClassConverter implements IClassConverter<JavaSource<?>> {
 	}
 
 	@Override
-	public void createMethodSection(Object parsedClass, StringBuilder attributes) {
-		for (Method method : ((JavaClass) parsedClass).getMethods()) {
+	public void createMethodSection(JavaClass parsedClass, StringBuilder attributes) {
+		for (Method method : parsedClass.getMethods()) {
 			if (Constants.generateClassMethods == MethodOptions.PUBLIC && method.getAccess() == AccessFlag.PUBLIC) {
 				attributes.append(getMethodString(method));
 			}
